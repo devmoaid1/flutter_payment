@@ -5,8 +5,11 @@ class CheckoutViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("This is Checkout View"),
+    return Center(
+      child: Text(
+        "This is Checkout ",
+        style: Theme.of(context).textTheme.headlineMedium,
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment/core/theme/light_theme.dart';
 import 'package:flutter_payment/presentation/checkout/views/checkout_view.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FlutterPaymentApp extends StatelessWidget {
   const FlutterPaymentApp({super.key});
@@ -8,10 +9,15 @@ class FlutterPaymentApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Payment',
-      theme: lightTheme,
-      home: const CheckoutView(),
+    return ScreenUtilInit(
+      designSize: const Size(390, 844),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => MaterialApp(
+        title: 'Payment',
+        theme: lightTheme,
+        home: const CheckoutView(),
+      ),
     );
   }
 }
