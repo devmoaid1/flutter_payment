@@ -3,6 +3,7 @@ import 'package:flutter_payment/core/theme/app_colors.dart';
 import 'package:flutter_payment/core/theme/text_theme.dart';
 
 final ThemeData lightTheme = ThemeData(
+    fontFamily: 'Montserrat',
     colorScheme: ColorScheme.fromSeed(
         primary: AppColors.primaryColor,
         secondary: AppColors.secondaryColor,
