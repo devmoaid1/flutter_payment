@@ -4,6 +4,7 @@ import 'package:flutter_payment/core/models/product.dart';
 
 import 'package:flutter_payment/core/utils/extensions/app_context.dart';
 import 'package:flutter_payment/core/utils/extensions/spaces.dart';
+import 'package:flutter_payment/core/widgets/card_decoration.dart';
 import 'package:flutter_payment/presentation/checkout/views/widgets/quantity_editor_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,16 +22,7 @@ class ProductCard extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(bottom: 10.h),
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 13.h),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              boxShadow: [
-                BoxShadow(
-                    offset: const Offset(0, 4),
-                    blurRadius: 4,
-                    spreadRadius: 0,
-                    color: Colors.black.withOpacity(0.25))
-              ]),
+          decoration: cardDecoration(),
           child: Row(
             children: [
               SizedBox(
@@ -69,8 +61,11 @@ class ProductCard extends StatelessWidget {
         Positioned(
           right: 15.w,
           bottom: 20.h,
-          child: SvgPicture.asset(
-            Assets.assetsIconsDelete, // Path to your minus SVG icon
+          child: GestureDetector(
+            onTap: () {},
+            child: SvgPicture.asset(
+              Assets.assetsIconsDelete, // Path to your minus SVG icon
+            ),
           ),
         ),
       ],

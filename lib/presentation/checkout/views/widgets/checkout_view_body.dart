@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_payment/core/utils/extensions/spaces.dart';
+import 'package:flutter_payment/presentation/checkout/views/widgets/checkout_total_section.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/widgets/heading_widget.dart';
@@ -23,7 +24,9 @@ class CheckoutViewBody extends StatelessWidget {
                 title: 'Checkout',
               ),
               42.vSpace,
-              const ProductsListSection()
+              const ProductsListSection(),
+              20.vSpace,
+              const CheckoutTotalSection()
             ],
           ),
         ),
