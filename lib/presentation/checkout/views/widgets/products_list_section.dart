@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment/core/app_icons.dart';
 import 'package:flutter_payment/presentation/checkout/views/widgets/product_card.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/models/product.dart';
 
