@@ -14,6 +14,7 @@ class FlutterPaymentApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Payment',
         theme: lightTheme,
         home: const CheckoutView(),
