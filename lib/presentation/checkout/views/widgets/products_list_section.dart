@@ -13,7 +13,7 @@ class ProductsListSection extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 3,
-      itemBuilder: (context, index) => ProductCard(
+      itemBuilder: (context, index) => const ProductCard(
         product: Product(
             image: Assets.assetsIconsProduct,
             name: "Fancy Sofa",

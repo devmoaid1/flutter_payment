@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/app_icons.dart';
+import '../../../../core/widgets/custom_svg_icon.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -62,11 +63,10 @@ class ProductCard extends StatelessWidget {
           right: 15.w,
           bottom: 20.h,
           child: GestureDetector(
-            onTap: () {},
-            child: SvgPicture.asset(
-              Assets.assetsIconsDelete, // Path to your minus SVG icon
-            ),
-          ),
+              onTap: () {},
+              child: const CustomSvgIcon(
+                assetPath: Assets.assetsIconsDelete,
+              )),
         ),
       ],
     );
