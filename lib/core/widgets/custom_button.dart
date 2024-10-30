@@ -12,6 +12,9 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: onPressed,
+      padding: EdgeInsets.symmetric(
+        vertical: 18.h,
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r), // Set the radius here
       ),

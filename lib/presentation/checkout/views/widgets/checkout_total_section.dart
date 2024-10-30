@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_payment/core/utils/extensions/app_context.dart';
 import 'package:flutter_payment/core/utils/extensions/spaces.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/widgets/card_decoration.dart';
+import '../checkout_viewmodel.dart';
 
 class CheckoutTotalSection extends StatelessWidget {
   const CheckoutTotalSection({super.key});
@@ -20,19 +22,33 @@ class CheckoutTotalSection extends StatelessWidget {
           children: [
             // SubTotal Row
 
-            const TotalRow(
-                title: 'SubTotal', value: 110.00, isTotalPrice: false),
+            Selector<CheckoutViewModel, double>(
+              selector: (ctx, viewModel) => viewModel.subTotal,
+              builder: (context, value, child) => TotalRow(
+                  title: 'SubTotal', value: value, isTotalPrice: false),
+            ),
             10.h.vSpace,
             // Taxes Row
+            Selector<CheckoutViewModel, double>(
+              selector: (ctx, viewModel) => viewModel.taxes,
+              builder: (context, value, child) =>
+                  TotalRow(title: 'Taxes', value: value, isTotalPrice: false),
+            ),
 
-            const TotalRow(title: 'Taxes', value: 0.00, isTotalPrice: false),
             10.h.vSpace,
+            Selector<CheckoutViewModel, double>(
+              selector: (ctx, viewModel) => viewModel.shipping,
+              builder: (context, value, child) => TotalRow(
+                  title: 'Shipping', value: value, isTotalPrice: false),
+            ),
 
-            const TotalRow(
-                title: 'Shipping', value: 10.00, isTotalPrice: false),
             10.h.vSpace,
             // Total Row
-            const TotalRow(title: 'Total:', value: 120.00, isTotalPrice: true)
+            Selector<CheckoutViewModel, double>(
+              selector: (ctx, viewModel) => viewModel.total,
+              builder: (context, value, child) =>
+                  TotalRow(title: 'Total:', value: value, isTotalPrice: true),
+            ),
           ],
         ),
       ),
