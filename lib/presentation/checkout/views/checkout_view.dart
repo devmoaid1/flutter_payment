@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment/core/widgets/custom_button.dart';
+import 'package:flutter_payment/presentation/add_payment/view/add_payment_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,9 @@ class CheckoutView extends StatelessWidget {
         bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
           child: CustomButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(AddPaymentView.routeName);
+            },
             text: 'Checkout',
           ),
         ),
