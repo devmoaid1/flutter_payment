@@ -6,6 +6,14 @@ class Assets {
   /// assets/icons/delete.svg
   static const String assetsIconsDelete = "assets/icons/delete.svg";
 
+  /// Assets for assetsIconsEmptyCart
+  /// assets/icons/empty_cart.svg
+  static const String assetsIconsEmptyCart = "assets/icons/empty_cart.svg";
+
+  /// Assets for assetsIconsLogo
+  /// assets/icons/logo.svg
+  static const String assetsIconsLogo = "assets/icons/logo.svg";
+
   /// Assets for assetsIconsMastercard
   /// assets/icons/Mastercard.svg
   static const String assetsIconsMastercard = "assets/icons/Mastercard.svg";

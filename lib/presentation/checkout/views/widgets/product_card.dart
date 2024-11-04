@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment/core/models/checkout_item.dart';
 
-import 'package:flutter_payment/core/models/product.dart';
-
 import 'package:flutter_payment/core/utils/extensions/app_context.dart';
 import 'package:flutter_payment/core/utils/extensions/spaces.dart';
 import 'package:flutter_payment/core/widgets/card_decoration.dart';
