@@ -17,9 +17,9 @@ class CheckoutViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Builder(builder: (context) {
-        if (Provider.of<CheckoutViewModel>(context, listen: true)
-            .checkoutItems
-            .isEmpty) {
+        if (Provider.of<CheckoutViewModel>(
+          context,
+        ).checkoutItems.isEmpty) {
           return const EmptyState();
         } else {
           return SingleChildScrollView(

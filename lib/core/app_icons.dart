@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_single_quotes
+
 class Assets {
   Assets._();
-  
+
   /// Assets for assetsIconsDelete
   /// assets/icons/delete.svg
   static const String assetsIconsDelete = "assets/icons/delete.svg";
@@ -33,5 +34,16 @@ class Assets {
   /// Assets for assetsIconsVisa
   /// assets/icons/visa.svg
   static const String assetsIconsVisa = "assets/icons/visa.svg";
-}
 
+  // list of icons desired to preload
+  static List<String> get preloadIcons => [
+        assetsIconsDelete,
+        assetsIconsEmptyCart,
+        assetsIconsLogo,
+        assetsIconsMastercard,
+        assetsIconsPaypal,
+        assetsIconsProduct,
+        assetsIconsSuccess,
+        assetsIconsVisa,
+      ];
+}
