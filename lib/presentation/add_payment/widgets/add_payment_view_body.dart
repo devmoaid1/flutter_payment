@@ -17,19 +17,21 @@ class AddPaymentViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          16.h.vSpace,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: const HeadingWidget(title: 'Add Payment Method'),
-          ),
-          30.h.vSpace,
-          const PaymentMethodsSection(),
-          60.h.vSpace,
-          PaymentMethodForm()
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            16.h.vSpace,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: const HeadingWidget(title: 'Add Payment Method'),
+            ),
+            30.h.vSpace,
+            const PaymentMethodsSection(),
+            60.h.vSpace,
+            PaymentMethodForm()
+          ],
+        ),
       ),
     );
   }

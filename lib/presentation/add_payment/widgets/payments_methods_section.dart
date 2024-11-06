@@ -13,20 +13,19 @@ class PaymentMethodsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      physics: const AlwaysScrollableScrollPhysics(),
-      padding: EdgeInsets.only(left: 16.w),
-      child: Row(
-        children: List.generate(
-          PaymentMethods.values.length, // Your item count
-          (index) => PaymentMethodCard(
-            iconPath: paymentMethodToAsset[PaymentMethods.values[index]]!,
-            isSelected: index == 0,
-          ),
-        ),
-      ),
-    );
+    return SizedBox(
+        height: 70.h,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: EdgeInsets.only(left: 16.w),
+            itemCount: PaymentMethods.values.length,
+            itemBuilder: (context, index) {
+              return PaymentMethodCard(
+                iconPath: paymentMethodToAsset[PaymentMethods.values[index]]!,
+                isSelected: index == 0,
+              );
+            }));
   }
 }
 
@@ -42,7 +41,6 @@ class PaymentMethodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70.h,
       margin: EdgeInsets.only(right: 20.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),

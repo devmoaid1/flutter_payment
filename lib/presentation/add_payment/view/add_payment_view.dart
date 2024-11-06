@@ -8,8 +8,11 @@ class AddPaymentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AddPaymentViewBody(),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: const Scaffold(
+        body: AddPaymentViewBody(),
+      ),
     );
   }
 }

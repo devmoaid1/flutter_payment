@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 
 class CustomTextField extends StatelessWidget {
   final String name;
@@ -31,31 +30,32 @@ class CustomTextField extends StatelessWidget {
         hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
               color: Theme.of(context).colorScheme.outline.withOpacity(0.8),
             ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.error,
-            width: 1.3,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-            width: 1.3,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.shadow,
-            width: 1.3,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-        ),
+        errorBorder: buildErrorBorder(context),
+        enabledBorder: buildEnabledBorder(context),
       ),
       validator: validator,
       onChanged: onChanged ?? (value) {},
       onSaved: onSaved,
+    );
+  }
+
+  OutlineInputBorder buildErrorBorder(BuildContext context) {
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Theme.of(context).colorScheme.error,
+        width: 1.3,
+      ),
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
+    );
+  }
+
+  OutlineInputBorder buildEnabledBorder(BuildContext context) {
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Theme.of(context).colorScheme.shadow,
+        width: 1.3,
+      ),
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
     );
   }
 }
