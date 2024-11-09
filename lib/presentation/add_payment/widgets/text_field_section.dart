@@ -15,6 +15,7 @@ class TextFieldSection extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
   final TextInputType? keyboardInputType;
   final List<TextInputFormatter>? inputFormatters;
+  final TextEditingController? controller;
 
   const TextFieldSection(
       {super.key,
@@ -25,7 +26,8 @@ class TextFieldSection extends StatelessWidget {
       this.onChanged,
       this.onSaved,
       this.keyboardInputType,
-      this.inputFormatters});
+      this.inputFormatters,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class TextFieldSection extends StatelessWidget {
       15.h.vSpace,
       CustomTextField(
         name: name,
+        controller: controller,
         inputFormatters: inputFormatters,
         keyboardInputType: keyboardInputType,
         hintText: hintText,

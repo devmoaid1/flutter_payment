@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
   final TextInputType? keyboardInputType;
   final List<TextInputFormatter>? inputFormatters;
+  final TextEditingController? controller;
 
   const CustomTextField({
     super.key,
@@ -20,12 +21,14 @@ class CustomTextField extends StatelessWidget {
     this.onSaved,
     this.keyboardInputType,
     this.inputFormatters,
+    this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
       name: name,
+      controller: controller,
       inputFormatters: inputFormatters,
       keyboardType: keyboardInputType,
       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
