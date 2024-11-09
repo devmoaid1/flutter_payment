@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -7,6 +8,8 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final Function(String?)? onChanged;
   final FormFieldSetter<String>? onSaved;
+  final TextInputType? keyboardInputType;
+  final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextField({
     super.key,
@@ -15,24 +18,34 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.onSaved,
+    this.keyboardInputType,
+    this.inputFormatters,
   });
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
       name: name,
+      inputFormatters: inputFormatters,
+      keyboardType: keyboardInputType,
       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             decoration: TextDecoration.none,
           ),
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        hintText: hintText ?? '',
-        hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-              color: Theme.of(context).colorScheme.outline.withOpacity(0.8),
-            ),
-        errorBorder: buildErrorBorder(context),
-        enabledBorder: buildEnabledBorder(context),
-      ),
+          hintText: hintText ?? '',
+          hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: Theme.of(context).colorScheme.outline.withOpacity(0.8),
+              ),
+          border: buildEnabledBorder(context),
+          disabledBorder: buildEnabledBorder(context),
+          focusedBorder: buildFocusedBorder(context),
+          errorBorder: buildErrorBorder(context),
+          enabledBorder: buildEnabledBorder(context),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          errorStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: Theme.of(context).colorScheme.error,
+              )),
       validator: validator,
       onChanged: onChanged ?? (value) {},
       onSaved: onSaved,
@@ -53,6 +66,16 @@ class CustomTextField extends StatelessWidget {
     return OutlineInputBorder(
       borderSide: BorderSide(
         color: Theme.of(context).colorScheme.shadow,
+        width: 1.3,
+      ),
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
+    );
+  }
+
+  OutlineInputBorder buildFocusedBorder(BuildContext context) {
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Theme.of(context).primaryColor,
         width: 1.3,
       ),
       borderRadius: const BorderRadius.all(Radius.circular(8)),

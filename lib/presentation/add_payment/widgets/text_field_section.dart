@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_payment/core/utils/extensions/app_context.dart';
 import 'package:flutter_payment/core/utils/extensions/spaces.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,9 @@ class TextFieldSection extends StatelessWidget {
   final String? Function(String?)? validator;
   final Function(String?)? onChanged;
   final FormFieldSetter<String>? onSaved;
+  final TextInputType? keyboardInputType;
+  final List<TextInputFormatter>? inputFormatters;
+
   const TextFieldSection(
       {super.key,
       required this.title,
@@ -19,7 +23,9 @@ class TextFieldSection extends StatelessWidget {
       required this.hintText,
       this.validator,
       this.onChanged,
-      this.onSaved});
+      this.onSaved,
+      this.keyboardInputType,
+      this.inputFormatters});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +38,8 @@ class TextFieldSection extends StatelessWidget {
       15.h.vSpace,
       CustomTextField(
         name: name,
+        inputFormatters: inputFormatters,
+        keyboardInputType: keyboardInputType,
         hintText: hintText,
         validator: validator,
         onChanged: onChanged,
