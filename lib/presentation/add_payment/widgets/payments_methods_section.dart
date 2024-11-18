@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment/core/utils/extensions/app_context.dart';
 import 'package:flutter_payment/core/utils/helpers/payment_methods_enum.dart';
+import 'package:flutter_payment/presentation/add_payment/viewmodels/add_payment_viewmodel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/utils/helpers/payment_method_to_asset.dart';
 import '../../../core/widgets/custom_svg_icon.dart';
@@ -15,16 +17,30 @@ class PaymentMethodsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
         height: 70.h,
-        child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.only(left: 16.w),
-            itemCount: PaymentMethods.values.length,
-            itemBuilder: (context, index) {
-              return PaymentMethodCard(
-                iconPath: paymentMethodToAsset[PaymentMethods.values[index]]!,
-                isSelected: index == 0,
-              );
+        child: Selector<AddPaymentViewmodel, int>(
+            selector: (ctx, viewModel) => viewModel.selectedPaymentMethodIndex,
+            shouldRebuild: (previous, next) => previous != next,
+            builder: (context, selectedIndex, child) {
+              print('build PaymentMethodsSection');
+              return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(left: 16.w),
+                  itemCount: PaymentMethods.values.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => context
+                          .read<AddPaymentViewmodel>()
+                          .setSelectedPaymentMethodIndex(index),
+                      child: PaymentMethodCard(
+                        key: ValueKey(paymentMethodToAsset[
+                            PaymentMethods.values[index]]!),
+                        iconPath:
+                            paymentMethodToAsset[PaymentMethods.values[index]]!,
+                        isSelected: index == selectedIndex,
+                      ),
+                    );
+                  });
             }));
   }
 }
