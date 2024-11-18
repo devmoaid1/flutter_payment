@@ -17,7 +17,6 @@ class FlutterPaymentApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
         onGenerateRoute: onGenerateRoute,
-        navigatorObservers: [RouteObserver()],
         initialRoute: SplashView.routeName,
         supportedLocales: FormBuilderLocalizations.supportedLocales,
         localizationsDelegates: const <LocalizationsDelegate<dynamic>>[

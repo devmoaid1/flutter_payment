@@ -23,6 +23,7 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
   late TextEditingController _expiryDateController;
 
   bool _isExpiryUpdating = false;
+  String _previousText = '';
   final bool _isCardNumberUpdating = false;
   @override
   void initState() {
@@ -41,17 +42,23 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
 
   void _handleExpiryDateChanged() {
     _expiryDateController.addListener(() {
+      final currentText = _expiryDateController.text;
       if (_isExpiryUpdating) return;
 
-      final currentText = _expiryDateController.text;
-      if (currentText.length == 2 && !currentText.contains('/')) {
-        // Temporarily set the flag to true to prevent recursive calls
-        _isExpiryUpdating = true;
-        _expiryDateController.text = '$currentText/';
-        _expiryDateController.selection = TextSelection.fromPosition(
-          TextPosition(offset: _expiryDateController.text.length),
-        );
-        _isExpiryUpdating = false; // Reset the flag
+      if (currentText.length < _previousText.length) {
+        _previousText = _expiryDateController.text;
+        return;
+      } else {
+        _previousText = _expiryDateController.text;
+        if (currentText.length == 2 && !currentText.endsWith('/')) {
+          // Temporarily set the flag to true to prevent recursive calls
+          _isExpiryUpdating = true;
+          _expiryDateController.text = '$currentText/';
+          _expiryDateController.selection = TextSelection.fromPosition(
+            TextPosition(offset: _expiryDateController.text.length),
+          );
+          _isExpiryUpdating = false; // Reset the flag
+        }
       }
     });
   }
