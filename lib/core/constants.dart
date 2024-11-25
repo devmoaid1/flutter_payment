@@ -3,6 +3,10 @@ import 'package:flutter_payment/core/models/checkout_item.dart';
 
 import 'models/product.dart';
 
+class AppConstants {
+  static const String paymentMethodsBoxKey = "paymentMethods";
+}
+
 List<CheckoutItem> checkouts = [
   const CheckoutItem(
       product: Product(

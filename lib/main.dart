@@ -12,7 +12,7 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
   setupDependecies();
   await Hive.initFlutter();
-  Hive.registerAdapter(PaymentMethodsAdapter());
-  Hive.registerAdapter(PaymentMethodEntityAdapter());
+  Hive.registerAdapter<PaymentMethods>(PaymentMethodsAdapter());
+  Hive.registerAdapter<PaymentMethodEntity>(PaymentMethodEntityAdapter());
   runApp(const FlutterPaymentApp());
 }
