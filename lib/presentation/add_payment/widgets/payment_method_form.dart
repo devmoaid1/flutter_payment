@@ -108,11 +108,9 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
         title: 'Cardholder Name',
         name: 'name',
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+          FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]'))
         ],
         keyboardInputType: TextInputType.name,
-        onChanged: (p0) =>
-            widget.formKey.currentState!.fields['name']?.validate(),
         hintText: "Moaid Mohamed",
         validator: FormBuilderValidators.compose([
           FormBuilderValidators.required(errorText: 'Name is required'),

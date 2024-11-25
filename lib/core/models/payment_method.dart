@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_payment/core/utils/helpers/payment_methods_enum.dart';
 import 'package:hive/hive.dart';
 
 part 'payment_method.g.dart';
 
 @HiveType(typeId: 0)
-class PaymentMethodEntity {
+class PaymentMethodEntity extends Equatable {
   @HiveField(0)
   final PaymentMethods? paymentMethod;
   @HiveField(1)
@@ -16,10 +17,14 @@ class PaymentMethodEntity {
   @HiveField(4)
   final String? cvv;
 
-  PaymentMethodEntity(
+  const PaymentMethodEntity(
       {this.paymentMethod,
       this.cardHolderName,
       this.cardNumber,
       this.expiryDate,
       this.cvv});
+
+  @override
+  List<Object?> get props =>
+      [paymentMethod, cardHolderName, cardNumber, expiryDate, cvv];
 }

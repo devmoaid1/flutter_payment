@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'core/constants.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
@@ -14,5 +16,6 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<PaymentMethods>(PaymentMethodsAdapter());
   Hive.registerAdapter<PaymentMethodEntity>(PaymentMethodEntityAdapter());
+  await Hive.openBox<PaymentMethodEntity>(AppConstants.paymentMethodsBoxKey);
   runApp(const FlutterPaymentApp());
 }

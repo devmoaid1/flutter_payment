@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_payment/core/constants.dart';
 import 'package:flutter_payment/core/models/payment_method.dart';
+import 'package:flutter_payment/core/utils/helpers/faliure_builder.dart';
 
 import '../../core/errors/exceptions.dart';
 import '../../core/errors/failures.dart';
@@ -14,10 +15,13 @@ abstract class PaymentMethodRepository {
 
 class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
   final LocalStorageService _localStorageService;
+  final FaliureBuilder _faliureBuilder;
 
   PaymentMethodRepositoryImpl(
-      {required LocalStorageService localStorageService})
-      : _localStorageService = localStorageService;
+      {required LocalStorageService localStorageService,
+      required FaliureBuilder faliureBuilder})
+      : _localStorageService = localStorageService,
+        _faliureBuilder = faliureBuilder;
 
   @override
   Future<Either<Failure, void>> addPaymentMethod(
@@ -29,7 +33,7 @@ class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
               AppConstants.paymentMethodsBoxKey, paymentMethod);
       return Right(addedPaymentMethod);
     } on CacheException catch (exc) {
-      return Left(CacheFailure(message: exc.message));
+      return Left(_faliureBuilder.build(exc));
     }
   }
 
@@ -42,7 +46,7 @@ class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
 
       return Right(paymentMethods);
     } on CacheException catch (exc) {
-      return Left(CacheFailure(message: exc.message));
+      return Left(_faliureBuilder.build(exc));
     }
   }
 }

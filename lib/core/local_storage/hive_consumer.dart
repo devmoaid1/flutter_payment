@@ -43,8 +43,19 @@ class HiveConsumer implements LocalStorageService {
   Future<void> addData<T>(String key, T value) async {
     try {
       _checkIfBoxIsOpen<T>(key);
-      await Hive.box<T>(key).add(value);
+      final box = Hive.box<T>(key);
+      final boxValues = box.values.toList();
+      if (boxValues.contains(value)) {
+        throw DataExistsCacheException("Data already exists");
+      } else {
+        await Hive.box<T>(key).add(value);
+      }
     } catch (e) {
+      if (e is CacheException) {
+        rethrow;
+      }
+
+      // For unknown exceptions, throw a generic CacheException
       throw const CacheException('Failed to add data');
     }
   }

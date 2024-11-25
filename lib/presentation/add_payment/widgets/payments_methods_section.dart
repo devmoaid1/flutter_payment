@@ -21,7 +21,6 @@ class PaymentMethodsSection extends StatelessWidget {
             selector: (ctx, viewModel) => viewModel.selectedPaymentMethodIndex,
             shouldRebuild: (previous, next) => previous != next,
             builder: (context, selectedIndex, child) {
-              print('build PaymentMethodsSection');
               return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: const AlwaysScrollableScrollPhysics(),
