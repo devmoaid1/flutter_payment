@@ -1,0 +1,1 @@
+enum PaymentProviders { stripe, paypal }
