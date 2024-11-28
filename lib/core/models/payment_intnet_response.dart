@@ -8,6 +8,6 @@ class PaymentIntnetResponse extends Equatable {
   List<Object?> get props => [clientSecret];
 
   factory PaymentIntnetResponse.fromJson(Map<String, dynamic> json) {
-    return PaymentIntnetResponse(clientSecret: json['clientSecret']);
+    return PaymentIntnetResponse(clientSecret: json['client_secret']);
   }
 }

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment/core/constants.dart';
 import 'package:flutter_payment/core/models/checkout_item.dart';
+import 'package:flutter_payment/core/models/payment_request.dart';
+import 'package:flutter_payment/core/utils/helpers/payment_providers.dart';
+import 'package:flutter_payment/data/repos/checkout_repository.dart';
 
 class CheckoutViewModel extends ChangeNotifier {
+  final CheckoutRepository checkoutRepository;
   List<CheckoutItem> _checkoutItems = [];
   List<CheckoutItem> get checkoutItems => _checkoutItems;
+
+  String _errorMessage = '';
+  String get errorMessage => _errorMessage;
 
   double _subTotal = 0.0;
   double _taxes = 0.0;
@@ -16,7 +23,7 @@ class CheckoutViewModel extends ChangeNotifier {
   double get shipping => _shipping;
   double get total => _total;
 
-  CheckoutViewModel() {
+  CheckoutViewModel({required this.checkoutRepository}) {
     _checkoutItems = checkouts;
     _subTotal = 340.00;
     _shipping = 0.00;
@@ -72,5 +79,20 @@ class CheckoutViewModel extends ChangeNotifier {
       removeItem(checkoutItem);
     }
     notifyListeners();
+  }
+
+  Future<void> checkout() async {
+    final response = await checkoutRepository.makePayment(
+        paymentType: PaymentProviders.stripe,
+        request: PaymentRequest(
+            amount: _subTotal.round().toString(), currency: 'USD'));
+    response.fold((failure) {
+      _errorMessage = failure.message;
+
+      notifyListeners();
+    }, (_) {
+      _errorMessage = '';
+      notifyListeners();
+    });
   }
 }

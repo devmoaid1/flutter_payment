@@ -54,6 +54,7 @@ class DioConsumer implements BaseApi {
       final response = await dio.post(
         url,
         data: body,
+        options: data as Options,
         queryParameters: queryParameters,
       );
       return fromJson(response.data);

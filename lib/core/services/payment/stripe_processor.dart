@@ -10,15 +10,25 @@ import 'payment_processor.dart';
 class StripeProcessor extends PaymentProcessor {
   final BaseApi _baseApi;
 
-  StripeProcessor({required BaseApi baseApi}) : _baseApi = baseApi;
+  // Private constructor
+  StripeProcessor._internal({required BaseApi baseApi}) : _baseApi = baseApi;
+
+  // Singleton instance
+  static StripeProcessor? _instance;
+
+  // Factory constructor for external access
+  factory StripeProcessor({required BaseApi baseApi}) {
+    return _instance ??= StripeProcessor._internal(baseApi: baseApi);
+  }
 
   Future<String> getClientSecretKey({required PaymentRequest request}) async {
     final headers = _preparePaymentIntentOptions();
     final paymentIntent = await _baseApi.post<PaymentIntnetResponse>(
-        url: 'payment_intents',
-        body: request.toJson(),
-        fromJson: PaymentIntnetResponse.fromJson,
-        data: Options(headers: headers));
+      url: 'payment_intents',
+      body: request.toJson(),
+      fromJson: PaymentIntnetResponse.fromJson,
+      data: Options(headers: headers),
+    );
 
     return paymentIntent.clientSecret;
   }
@@ -31,7 +41,8 @@ class StripeProcessor extends PaymentProcessor {
     };
   }
 
-  Future<void> _intializePaymentSheet({required String clientSecret}) async {
+  Future<void> _initializePaymentSheet({required String clientSecret}) async {
+    Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: clientSecret,
@@ -44,7 +55,7 @@ class StripeProcessor extends PaymentProcessor {
   Future<void> processPayment({required PaymentRequest request}) async {
     final clientSecret = await getClientSecretKey(request: request);
 
-    await _intializePaymentSheet(clientSecret: clientSecret);
+    await _initializePaymentSheet(clientSecret: clientSecret);
 
     await Stripe.instance.presentPaymentSheet();
   }

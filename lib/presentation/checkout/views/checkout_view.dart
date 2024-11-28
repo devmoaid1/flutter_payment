@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment/core/widgets/custom_button.dart';
-import 'package:flutter_payment/presentation/add_payment/view/add_payment_view.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -15,14 +15,14 @@ class CheckoutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CheckoutViewModel>(
       create: (_) => getIt<CheckoutViewModel>(),
-      child: Scaffold(
+      builder: (context, child) => Scaffold(
         body: const CheckoutViewBody(),
         bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
           child: CustomButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(AddPaymentView.routeName);
-            },
+            onPressed: () =>
+                Provider.of<CheckoutViewModel>(context, listen: false)
+                    .checkout(),
             text: 'Checkout',
           ),
         ),
