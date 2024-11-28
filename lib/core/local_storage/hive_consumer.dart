@@ -9,7 +9,7 @@ class HiveConsumer implements LocalStorageService {
       _checkIfBoxIsOpen<T>(key);
       return Hive.box<T>(key).get(key);
     } catch (e) {
-      throw const CacheException('Failed to get data');
+      throw const CacheException(message: 'Failed to get data');
     }
   }
 
@@ -19,7 +19,7 @@ class HiveConsumer implements LocalStorageService {
       _checkIfBoxIsOpen<T>(key);
       await Hive.box<T>(key).delete(key);
     } catch (e) {
-      throw const CacheException('Failed to remove data');
+      throw const CacheException(message: 'Failed to remove data');
     }
   }
 
@@ -29,7 +29,7 @@ class HiveConsumer implements LocalStorageService {
       _checkIfBoxIsOpen<T>(key);
       await Hive.box<T>(key).add(value);
     } catch (e) {
-      throw const CacheException('Failed to set data');
+      throw const CacheException(message: 'Failed to set data');
     }
   }
 
@@ -46,7 +46,7 @@ class HiveConsumer implements LocalStorageService {
       final box = Hive.box<T>(key);
       final boxValues = box.values.toList();
       if (boxValues.contains(value)) {
-        throw DataExistsCacheException("Data already exists");
+        throw DataExistsCacheException(message: "Data already exists");
       } else {
         await Hive.box<T>(key).add(value);
       }
@@ -56,7 +56,7 @@ class HiveConsumer implements LocalStorageService {
       }
 
       // For unknown exceptions, throw a generic CacheException
-      throw const CacheException('Failed to add data');
+      throw const CacheException(message: "Data already exists");
     }
   }
 
@@ -67,7 +67,7 @@ class HiveConsumer implements LocalStorageService {
       final box = Hive.box<T>(key);
       return box.values.toList();
     } catch (e) {
-      throw const CacheException('Failed to add data');
+      throw const CacheException(message: 'Failed to add data');
     }
   }
 }

@@ -5,6 +5,7 @@ import 'models/product.dart';
 
 class AppConstants {
   static const String paymentMethodsBoxKey = "paymentMethods";
+  static const String baseApiUrl = 'https://api.stripe.com/v1/';
 }
 
 List<CheckoutItem> checkouts = [

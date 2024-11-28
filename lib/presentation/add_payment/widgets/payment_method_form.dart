@@ -19,25 +19,24 @@ class PaymentMethodForm extends StatefulWidget {
 }
 
 class _PaymentMethodFormState extends State<PaymentMethodForm> {
-  late TextEditingController _cardNumberController;
   late TextEditingController _expiryDateController;
 
   bool _isExpiryUpdating = false;
   String _previousText = '';
-  final bool _isCardNumberUpdating = false;
+
   @override
   void initState() {
     super.initState();
-    _cardNumberController = TextEditingController();
+
     _expiryDateController = TextEditingController();
 
     _handleExpiryDateChanged();
   }
 
-  void _handleCardNumberChanged() {
-    _cardNumberController.addListener(() {
-      if (_isCardNumberUpdating) return;
-    });
+  @override
+  void dispose() {
+    _expiryDateController.dispose();
+    super.dispose();
   }
 
   void _handleExpiryDateChanged() {
@@ -129,7 +128,6 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
       child: TextFieldSection(
         title: 'Card Number',
         name: 'cardNumber',
-        controller: _cardNumberController,
         keyboardInputType: TextInputType.number,
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly,
