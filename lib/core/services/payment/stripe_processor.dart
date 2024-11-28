@@ -1,8 +1,9 @@
 import 'payment_processor.dart';
 
-class StripeProcessor implements PaymentProcessor {
+class StripeProcessor extends PaymentProcessor {
   @override
-  void processPayment({required double amount, required String currency}) {
+  Future<void> processPayment(
+      {required double amount, required String currency}) async {
     // TODO: implement processPayment
   }
 }

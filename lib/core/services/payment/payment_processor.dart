@@ -1,3 +1,4 @@
 abstract class PaymentProcessor {
-  void processPayment({required double amount, required String currency});
+  Future<void> processPayment(
+      {required double amount, required String currency});
 }

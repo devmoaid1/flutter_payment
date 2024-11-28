@@ -2,7 +2,8 @@ import 'payment_processor.dart';
 
 class PaypalProcessor implements PaymentProcessor {
   @override
-  void processPayment({required double amount, required String currency}) {
+  Future<void> processPayment(
+      {required double amount, required String currency}) async {
     // TODO: implement processPayment
   }
 }
