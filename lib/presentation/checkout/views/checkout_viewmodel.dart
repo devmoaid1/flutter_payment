@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_payment/core/constants.dart';
 import 'package:flutter_payment/core/models/checkout_item.dart';
 import 'package:flutter_payment/core/models/payment_request.dart';
+import 'package:flutter_payment/core/utils/extensions/to_Stripe_amount.dart';
 import 'package:flutter_payment/core/utils/helpers/payment_providers.dart';
 import 'package:flutter_payment/data/repos/checkout_repository.dart';
 
@@ -84,8 +85,8 @@ class CheckoutViewModel extends ChangeNotifier {
   Future<void> checkout() async {
     final response = await checkoutRepository.makePayment(
         paymentType: PaymentProviders.stripe,
-        request: PaymentRequest(
-            amount: _subTotal.round().toString(), currency: 'USD'));
+        request:
+            PaymentRequest(amount: _total.toStripeAmount(), currency: 'USD'));
     response.fold((failure) {
       _errorMessage = failure.message;
 
