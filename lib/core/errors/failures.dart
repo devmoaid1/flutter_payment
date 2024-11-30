@@ -15,3 +15,7 @@ class ServerFailure extends Failure {
 class CacheFailure extends Failure {
   const CacheFailure({required super.message});
 }
+
+class PaymentProcessorFailure extends Failure {
+  const PaymentProcessorFailure({required super.message});
+}

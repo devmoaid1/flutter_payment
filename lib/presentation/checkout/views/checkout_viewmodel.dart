@@ -5,6 +5,7 @@ import 'package:flutter_payment/core/models/payment_request.dart';
 import 'package:flutter_payment/core/theme/app_colors.dart';
 import 'package:flutter_payment/core/utils/extensions/to_Stripe_amount.dart';
 import 'package:flutter_payment/core/utils/helpers/functions/build_toast.dart';
+import 'package:flutter_payment/core/utils/helpers/payment_methods_enum.dart';
 import 'package:flutter_payment/core/utils/helpers/payment_providers.dart';
 import 'package:flutter_payment/data/repos/checkout_repository.dart';
 
@@ -86,7 +87,7 @@ class CheckoutViewModel extends ChangeNotifier {
 
   Future<void> checkout() async {
     final response = await checkoutRepository.makePayment(
-        paymentType: PaymentProviders.stripe,
+        paymentMethod: PaymentMethods.creditCard,
         request: StripePaymentRequest(
             amount: _total.toStripeAmount(), currency: 'USD'));
     response.fold((failure) {

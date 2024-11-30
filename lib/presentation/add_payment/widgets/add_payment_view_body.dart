@@ -8,7 +8,7 @@ import 'package:flutter_payment/core/widgets/custom_button.dart';
 import 'package:flutter_payment/core/widgets/heading_widget.dart';
 import 'package:flutter_payment/presentation/add_payment/viewmodels/add_payment_viewmodel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../../core/models/payment_method.dart';
@@ -67,7 +67,7 @@ class AddPaymentViewBody extends StatelessWidget {
                         // Create a payment method entity
                         final paymentMethod = PaymentMethodEntity(
                           paymentMethod:
-                              PaymentMethods.mastercard, // Example enum
+                              PaymentMethods.creditCard, // Example enum
                           cardHolderName: cardHolderName,
                           cardNumber: cardNumber,
                           expiryDate: expiry,

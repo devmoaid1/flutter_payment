@@ -21,26 +21,44 @@ class PaymentMethodsSection extends StatelessWidget {
             selector: (ctx, viewModel) => viewModel.selectedPaymentMethodIndex,
             shouldRebuild: (previous, next) => previous != next,
             builder: (context, selectedIndex, child) {
-              return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(left: 16.w),
-                  itemCount: PaymentMethods.values.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => context
-                          .read<AddPaymentViewmodel>()
-                          .setSelectedPaymentMethodIndex(index),
-                      child: PaymentMethodCard(
-                        key: ValueKey(paymentMethodToAsset[
-                            PaymentMethods.values[index]]!),
-                        iconPath:
-                            paymentMethodToAsset[PaymentMethods.values[index]]!,
-                        isSelected: index == selectedIndex,
-                      ),
-                    );
-                  });
+              return PaymentMethodsList(
+                selectedIndex: selectedIndex,
+                onTap: () => context
+                    .read<AddPaymentViewmodel>()
+                    .setSelectedPaymentMethodIndex(selectedIndex),
+              );
             }));
+  }
+}
+
+class PaymentMethodsList extends StatelessWidget {
+  final int selectedIndex;
+  final void Function()? onTap;
+
+  const PaymentMethodsList({
+    super.key,
+    required this.selectedIndex,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: EdgeInsets.only(left: 16.w),
+        itemCount: PaymentMethods.values.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: onTap,
+            child: PaymentMethodCard(
+              key:
+                  ValueKey(paymentMethodToAsset[PaymentMethods.values[index]]!),
+              iconPath: paymentMethodToAsset[PaymentMethods.values[index]]!,
+              isSelected: index == selectedIndex,
+            ),
+          );
+        });
   }
 }
 

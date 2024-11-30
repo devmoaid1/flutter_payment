@@ -13,25 +13,20 @@ class PaymentMethodsAdapter extends TypeAdapter<PaymentMethods> {
   @override
   PaymentMethods read(BinaryReader reader) {
     switch (reader.readByte()) {
-      case 6:
-        return PaymentMethods.visa;
-      case 7:
-        return PaymentMethods.mastercard;
+      case 10:
+        return PaymentMethods.creditCard;
       case 8:
         return PaymentMethods.paypal;
       default:
-        return PaymentMethods.visa;
+        return PaymentMethods.creditCard;
     }
   }
 
   @override
   void write(BinaryWriter writer, PaymentMethods obj) {
     switch (obj) {
-      case PaymentMethods.visa:
-        writer.writeByte(6);
-        break;
-      case PaymentMethods.mastercard:
-        writer.writeByte(7);
+      case PaymentMethods.creditCard:
+        writer.writeByte(10);
         break;
       case PaymentMethods.paypal:
         writer.writeByte(8);
