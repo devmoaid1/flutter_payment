@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_payment/core/errors/exceptions.dart';
 import 'package:flutter_payment/core/networking/base_api.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
@@ -53,10 +54,18 @@ class StripeProcessor extends PaymentProcessor {
 
   @override
   Future<void> processPayment({required PaymentRequest request}) async {
-    final clientSecret = await getClientSecretKey(request: request);
+    try {
+      final clientSecret = await getClientSecretKey(request: request);
 
-    await _initializePaymentSheet(clientSecret: clientSecret);
+      await _initializePaymentSheet(clientSecret: clientSecret);
 
-    await Stripe.instance.presentPaymentSheet();
+      await Stripe.instance.presentPaymentSheet();
+    } on ServerException catch (e) {
+      throw PaymentProcessorException(message: e.message);
+    } on StripeException catch (e) {
+      throw PaymentProcessorException(
+          message: e.error.localizedMessage ??
+              "something went wrong with payment provider");
+    }
   }
 }

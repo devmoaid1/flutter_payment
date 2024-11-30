@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'package:flutter_payment/core/utils/extensions/spaces.dart';
+import 'package:flutter_payment/core/utils/helpers/functions/build_toast.dart';
 import 'package:flutter_payment/core/widgets/custom_button.dart';
 
 import 'package:flutter_payment/core/widgets/heading_widget.dart';
@@ -79,21 +80,12 @@ class AddPaymentViewBody extends StatelessWidget {
 
                         // Show appropriate toast based on the result
                         if (success) {
-                          Fluttertoast.showToast(
-                            msg: 'Payment method added successfully!',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            backgroundColor: Colors.green,
-                            textColor: Colors.white,
-                          );
+                          buildToast(
+                              message: 'Payment method added successfully!');
                         } else {
-                          Fluttertoast.showToast(
-                            msg: viewModel.errorMessageString,
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                          );
+                          buildToast(
+                              message: viewModel.errorMessageString,
+                              color: Colors.red);
                         }
                       }
                     },

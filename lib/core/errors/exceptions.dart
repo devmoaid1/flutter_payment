@@ -19,3 +19,8 @@ class CacheException extends AppException {
 class DataExistsCacheException extends CacheException {
   DataExistsCacheException({super.message});
 }
+
+// general exception for any payment processor error
+class PaymentProcessorException extends AppException {
+  const PaymentProcessorException({super.message = 'Payment error'});
+}

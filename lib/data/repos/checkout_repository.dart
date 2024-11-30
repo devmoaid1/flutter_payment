@@ -22,10 +22,8 @@ class CheckoutRepositoryImpl implements CheckoutRepository {
       // process payment request
       final response = await paymentProcessor.processPayment(request: request);
       return right(response);
-    } on ServerException catch (e) {
+    } on PaymentProcessorException catch (e) {
       return Left(ServerFailure(message: e.message));
-    } on Exception catch (_) {
-      return const Left(ServerFailure(message: 'Failed to make payment'));
     }
   }
 }
