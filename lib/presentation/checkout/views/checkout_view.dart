@@ -39,22 +39,43 @@ class CheckoutView extends StatelessWidget {
           top: Radius.circular(10),
         ),
       ),
-      builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Headline
-              const HeadingWidget(title: 'Select Payment Method'),
-              20.h.vSpace,
+      builder: (BuildContext bottomSheetContext) {
+        return ChangeNotifierProvider.value(
+          value: Provider.of<CheckoutViewModel>(context, listen: false),
+          builder: (context, child) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Headline
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: HeadingWidget(title: 'Select Payment Method'),
+                ),
+                20.h.vSpace,
 
-              // Horizontal List of Payment Methods
-              SizedBox(
-                  height: 100.h,
-                  child: PaymentMethodsList(onTap: () => {}, selectedIndex: 1)),
-            ],
+                // Horizontal List of Payment Methods
+                SizedBox(
+                  height: 70.h,
+                  child: Selector<CheckoutViewModel, int>(
+                    builder: (_, selectedPaymentMethod, child) {
+                      final checkOutViewModel = Provider.of<CheckoutViewModel>(
+                          context,
+                          listen: false);
+                      return PaymentMethodsList(
+                        onTap: (selectedPaymentMethod) {
+                          checkOutViewModel
+                              .setPaymentMethodIndex(selectedPaymentMethod);
+                        },
+                        selectedIndex: selectedPaymentMethod,
+                      );
+                    },
+                    selector: (_, viewModel) => viewModel.selectedPaymentMethod,
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

@@ -23,7 +23,7 @@ class PaymentMethodsSection extends StatelessWidget {
             builder: (context, selectedIndex, child) {
               return PaymentMethodsList(
                 selectedIndex: selectedIndex,
-                onTap: () => context
+                onTap: (index) => context
                     .read<AddPaymentViewmodel>()
                     .setSelectedPaymentMethodIndex(selectedIndex),
               );
@@ -33,7 +33,7 @@ class PaymentMethodsSection extends StatelessWidget {
 
 class PaymentMethodsList extends StatelessWidget {
   final int selectedIndex;
-  final void Function()? onTap;
+  final void Function(int index)? onTap;
 
   const PaymentMethodsList({
     super.key,
@@ -50,7 +50,7 @@ class PaymentMethodsList extends StatelessWidget {
         itemCount: PaymentMethods.values.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: onTap,
+            onTap: onTap == null ? null : () => onTap!(index),
             child: PaymentMethodCard(
               key:
                   ValueKey(paymentMethodToAsset[PaymentMethods.values[index]]!),
@@ -74,6 +74,7 @@ class PaymentMethodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 90.w,
       margin: EdgeInsets.only(right: 20.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
@@ -84,9 +85,11 @@ class PaymentMethodCard extends StatelessWidget {
           width: isSelected ? 1.7 : 1.3,
         ),
       ),
-      padding: EdgeInsets.symmetric(vertical: 18.h, horizontal: 16.w),
-      child: CustomSvgIcon(
-        assetPath: iconPath,
+      padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
+      child: Center(
+        child: CustomSvgIcon(
+          assetPath: iconPath,
+        ),
       ),
     );
   }

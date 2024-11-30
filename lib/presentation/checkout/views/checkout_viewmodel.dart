@@ -6,10 +6,11 @@ import 'package:flutter_payment/core/theme/app_colors.dart';
 import 'package:flutter_payment/core/utils/extensions/to_Stripe_amount.dart';
 import 'package:flutter_payment/core/utils/helpers/functions/build_toast.dart';
 import 'package:flutter_payment/core/utils/helpers/payment_methods_enum.dart';
-import 'package:flutter_payment/core/utils/helpers/payment_providers.dart';
+
+import 'package:flutter_payment/core/utils/helpers/select_payment_mixin.dart';
 import 'package:flutter_payment/data/repos/checkout_repository.dart';
 
-class CheckoutViewModel extends ChangeNotifier {
+class CheckoutViewModel extends ChangeNotifier with SelectPaymentMixin {
   final CheckoutRepository checkoutRepository;
   List<CheckoutItem> _checkoutItems = [];
   List<CheckoutItem> get checkoutItems => _checkoutItems;
@@ -33,6 +34,12 @@ class CheckoutViewModel extends ChangeNotifier {
     _shipping = 0.00;
     _taxes = _calculateTaxes();
     _total = _calculateTotal();
+  }
+
+  void setPaymentMethodIndex(int index) {
+    selectPaymentMethod(index);
+    _checkout();
+    notifyListeners();
   }
 
   double _calculateTaxes() {
@@ -85,7 +92,7 @@ class CheckoutViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> checkout() async {
+  Future<void> _checkout() async {
     final response = await checkoutRepository.makePayment(
         paymentMethod: PaymentMethods.creditCard,
         request: StripePaymentRequest(
